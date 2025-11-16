@@ -19,6 +19,17 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('categoryes/', include('Forum_app.urls'))
+    # advertisement
+    # auth
+    # electronic
+    # events
+    # gallery
+    # mainpage
+    # materials
+    # portfolio
+    # questions
+    # votingsystem
 
     path('advertisements/', include('Advertisement_app.urls')),
     path('listes/', include('Advertisement_app.urls'))
