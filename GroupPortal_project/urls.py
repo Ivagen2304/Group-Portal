@@ -30,4 +30,8 @@ urlpatterns = [
     # portfolio
     # questions
     # votingsystem
+
+    path('advertisements/', include('Advertisement_app.urls')),
+    path('listes/', include('Advertisement_app.urls'))
 ]
+
