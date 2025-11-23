@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'MainPage_app',
     'Authentication_app',
     'Forum_app',
-    # 'ElectronicDiary_app',
+    #'ElectronicDiary_app',
     'Events_app',
     'QuestionsSystem_app',
     'VotingSystem_app',
