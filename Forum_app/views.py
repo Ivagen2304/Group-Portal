@@ -1,39 +1,109 @@
-from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView
-from .models import Category, Topic, Message
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
+from django.shortcuts import get_object_or_404
+from .models import *
+from .forms import *
 
 
-class CategoryListView(ListView):
+class CategoryCreateView(CreateView):
     model = Category
-    context_object_name = 'categoryes'
-    template_name = 'Forum_app/categorylist.html'
+    form_class = CategoryForm
+    template_name = 'Forum_app/category_form.html'
+    success_url = reverse_lazy('category_list')
 
 
-class TopicListView(ListView):
+class CategoryUpdateView(UpdateView):
+    model = Category
+    form_class = CategoryForm
+    template_name = 'Forum_app/category_form.html'
+    success_url = reverse_lazy('category_list')
+
+
+class CategoryDeleteView(DeleteView):
+    model = Category
+    template_name = 'Forum_app/category_confirm_delete.html'
+    success_url = reverse_lazy('category_list')
+
+
+class CategoryDetailView(DetailView):
+    model = Category
+    template_name = 'Forum_app/category_detail.html'
+    context_object_name = 'category'
+
+
+
+class TopicCreateView(CreateView):
     model = Topic
-    context_object_name = 'topics'
-    template_name = 'Forum_app/topiclist.html'
+    form_class = TopicForm
+    template_name = 'Forum_app/topic_form.html'
 
-    def get_queryset(self):
-        category = get_object_or_404(Category, pk=self.kwargs['pk'])
-        return Topic.objects.filter(category=category)
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['category'] = get_object_or_404(Category, pk=self.kwargs['pk'])
-        return context
+    def get_success_url(self):
+        return reverse_lazy('topic_list', kwargs={'pk': self.object.category.pk})
 
 
-class MessageListView(ListView):
+class TopicUpdateView(UpdateView):
+    model = Topic
+    form_class = TopicForm
+    template_name = 'Forum_app/topic_form.html'
+
+    def get_success_url(self):
+        return reverse_lazy('topic_list', kwargs={'pk': self.object.category.pk})
+
+
+class TopicDeleteView(DeleteView):
+    model = Topic
+    template_name = 'Forum_app/topic_confirm_delete.html'
+
+    def get_success_url(self):
+        return reverse_lazy('topic_list', kwargs={'pk': self.object.category.pk})
+
+
+class TopicDetailView(DetailView):
+    model = Topic
+    template_name = 'Forum_app/topic_detail.html'
+    context_object_name = 'topic'
+
+
+
+class MessageCreateView(CreateView):
     model = Message
-    context_object_name = 'messages'
-    template_name = 'Forum_app/messagelist.html'
+    form_class = MessageForm
+    template_name = 'Forum_app/message_form.html'
 
-    def get_queryset(self):
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def get_initial(self):
         topic = get_object_or_404(Topic, pk=self.kwargs['pk'])
-        return Message.objects.filter(topic=topic)
+        return {'topic': topic}
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['topic'] = get_object_or_404(Topic, pk=self.kwargs['pk'])
-        return context
+    def get_success_url(self):
+        return reverse_lazy('message_list', kwargs={'pk': self.object.topic.pk})
+
+
+class MessageUpdateView(UpdateView):
+    model = Message
+    form_class = MessageForm
+    template_name = 'Forum_app/message_form.html'
+
+    def get_success_url(self):
+        return reverse_lazy('message_list', kwargs={'pk': self.object.topic.pk})
+
+
+class MessageDeleteView(DeleteView):
+    model = Message
+    template_name = 'Forum_app/message_confirm_delete.html'
+
+    def get_success_url(self):
+        return reverse_lazy('message_list', kwargs={'pk': self.object.topic.pk})
+
+
+class MessageDetailView(DetailView):
+    model = Message
+    template_name = 'Forum_app/message_detail.html'
+    context_object_name = 'message'
