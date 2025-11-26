@@ -6,8 +6,12 @@
     <title>Document</title>
 </head>
 <body>
+    <h1>All Portfolios</h1>
+    <p><a href = "{% url 'portfoliocreate' %}">Створити</a></p>
     {% for portfolio in portfolios %}
-    {{portfolio.name}}
+    <div>
+        <a href = "/portfolio/{{portfolio.pk}}">{{portfolio.name}}</a>
+    </div>
     {% endfor %}
 </body>
 </html>
