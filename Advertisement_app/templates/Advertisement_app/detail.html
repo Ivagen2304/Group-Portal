@@ -1,0 +1,18 @@
+{% base.html %}
+{% block content %}
+<div class="container mt-4">
+    <h2>{{ object.name }}</h2>
+    <p>{{ object.description }}</p>
+    {% if object.date_limit %}
+        <p><strong>Термін:</strong> {{ object.date_limit }}</p>
+    {% endif %}
+    <p><strong>Автор:</strong> {{ object.creator.username }}</p>
+    <a href="{% url 'advertisements:advertisement' %}" class="btn btn-secondary">Назад до списку</a>
+    {% if perms.Advertisement_app.change_advertisement %}
+        <a href="{% url 'advertisements:edit' object.pk %}" class="btn btn-success">Редагувати</a>
+    {% endif %}
+    {% if perms.Advertisement_app.delete_advertisement %}
+        <a href="{% url 'advertisements:delete' object.pk %}" class="btn btn-danger">Видалити</a>
+    {% endif %}
+</div>
+{% endblock %}
