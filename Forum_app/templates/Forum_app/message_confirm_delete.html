@@ -1,0 +1,19 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Message</title>
+</head>
+<body>
+    <h1>Delete Message</h1>
+
+    <p>Are you sure you want to delete message #{{ object.pk }}?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Confirm</button>
+    </form>
+
+    <a href="{% url 'message_detail' object.pk %}">Cancel</a>
+</body>
+</html>

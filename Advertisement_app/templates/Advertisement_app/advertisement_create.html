@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Create Advertisement</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit" class="btn btn-success">Create</button>
+    <a href="{% url 'advertisement_list' %}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}

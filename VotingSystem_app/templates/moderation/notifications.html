@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Сповіщення</h2>
+<ul>
+  {% for n in notes %}
+    <li>
+      Відправлено: {{n.user}} --- {{ n.message }}<a href="{% url 'moderation:notification_detail' n.id %}"><h3>Відкрити</h3></a>
+      {% if request.user.is_moderator %}
+        <p>
+          <a href="{% url 'delete_poll' n.poll.id %}"
+            onclick="return confirm('Видалити це голосування?');">
+            Видалити
+          </a>
+        </p>
+      {% endif %}
+    </li>
+  {% empty %}<li>Пусто</li>{% endfor %}
+</ul>
+{% endblock %}

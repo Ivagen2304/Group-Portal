@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>{{ list.name }}</h2>
+
+<p>{{ list.description }}</p>
+<p><small>Deadline: {{ list.date_limit }}</small></p>
+
+<a href="{% url 'list_update' list.pk %}" class="btn btn-warning">Edit</a>
+<a href="{% url 'list_delete' list.pk %}" class="btn btn-danger">Delete</a>
+
+<a href="{% url 'list_list' %}" class="btn btn-secondary mt-3">Back</a>
+{% endblock %}

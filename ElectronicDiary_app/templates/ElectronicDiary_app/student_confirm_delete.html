@@ -1,0 +1,13 @@
+{% extends 'ElectronicDiary_app/base.html' %}
+
+{% block content %}
+<h2>Підтвердження видалення</h2>
+
+<p>Ви дійсно хочете видалити <strong>{{ student }}</strong>?</p>
+
+<form method="POST" class="mt-3">
+    {% csrf_token %}
+    <button class="btn btn-danger" type="submit">Так, видалити</button>
+    <a class="btn btn-secondary" href="{% url 'student_list' %}">Скасувати</a>
+</form>
+{% endblock %}

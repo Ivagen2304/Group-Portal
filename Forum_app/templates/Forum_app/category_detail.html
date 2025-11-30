@@ -1,0 +1,16 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ category.name }}</title>
+</head>
+<body>
+    <h1>{{ category.name }}</h1>
+    <p>{{ category.description }}</p>
+    <p>Created: {{ category.created_at }}</p>
+
+    <a href="{% url 'category_edit' category.pk %}">Edit</a> |
+    <a href="{% url 'category_delete' category.pk %}">Delete</a> |
+    <a href="{% url 'topic_list' category.pk %}">View Topics</a>
+</body>
+</html>

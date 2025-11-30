@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <label>Нікнейм:</label>
+    <input type="text" name="username" required>
+
+    <label>Пароль:</label>
+    <input type="password" name="password1" required>
+
+    <label>Повторіть пароль:</label>
+    <input type="password" name="password2" required>
+
+    {% if role == 'moderator' %}
+    <label>Код модератора:</label>
+    <input type="text" name="moderator_code" required>
+    {% endif %}
+
+    <button type="submit">Зареєструватися</button>
+</form>
+{% endblock %}

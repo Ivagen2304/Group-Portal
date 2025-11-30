@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Створити опитування</h2>
+<form method="post">{% csrf_token %}
+  {{ options.management_form }}
+  {{ pform.as_p }}
+  <h3>Варіанти (мін 2, макс 10)</h3>
+  <div id="options">
+    {% for form in options.forms %}
+      <div class="opt">{{ form.as_p }}</div>
+    {% endfor %}
+  </div>
+  <button type="button" id="add">Додати варіант</button>
+  <hr>
+  {{ sform.as_p }}
+  <button>Створити</button>
+</form>
+<script>
+(function() {
+    const addBtn = document.getElementById('add');
+    const totalForms = document.querySelector('[name="form-TOTAL_FORMS"]');
+    const container = document.getElementById('options');
+
+    addBtn.addEventListener('click', () => {
+        let formCount = parseInt(totalForms.value);
+
+        if (formCount >= 10) {
+            return alert("Максимум 10 варіантів");
+        }
+
+        // Беремо перший шаблон як еталон
+        const template = container.querySelector('.opt').cloneNode(true);
+
+        // Міняємо індекси всередині нової форми
+        template.innerHTML = template.innerHTML.replace(
+            new RegExp(`form-(\\d+)-`, 'g'),
+            `form-${formCount}-`
+        );
+
+        // Очищаємо значення input
+        const input = template.querySelector('input');
+        if (input) input.value = "";
+
+        // Додаємо в DOM
+        container.appendChild(template);
+
+        // Збільшуємо TOTAL_FORMS
+        totalForms.value = formCount + 1;
+    });
+})();
+</script>
+{% endblock %}

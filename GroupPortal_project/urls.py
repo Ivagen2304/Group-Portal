@@ -19,15 +19,40 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('categoryes/', include('Forum_app.urls'))
-    # advertisement
-    # auth
-    # electronic
-    # events
-    # gallery
-    # mainpage
-    # materials
-    # portfolio
-    # questions
-    # votingsystem
+
+    # ─────────── MAIN PAGE ───────────
+    path('', include('MainPage_app.urls')),
+
+    # ─────────── AUTHENTICATION ───────────
+    # Авторизация, регистрация, логин/логаут
+    path('auth/', include('Authentication_app.urls')),
+
+    # ─────────── FORUM ───────────
+    path('categoryes/', include('Forum_app.urls')),
+
+    # ─────────── ELECTRONIC DIARY (students / teachers / classes / etc.) ───────────
+    # ВАЖНО: Только один include, потому что внутри уже есть все пути
+    path('', include('ElectronicDiary_app.urls')),
+
+    # ─────────── EVENTS ───────────
+    #path('events/', include('Events_app.urls')),
+
+    # ─────────── MATERIALS ───────────
+    #path('materials/', include('Materials_app.urls')),
+
+    # ─────────── QUESTIONS SYSTEM ───────────
+    #path('questions/', include('QuestionsSystem_app.urls')),
+
+    # ─────────── VOTING SYSTEM ───────────
+    #path('voting/', include('VotingSystem_app.urls')),
+
+    # ─────────── GALLERY ───────────
+    path('albums/', include('Gallery_app.urls')),
+
+    # ─────────── PORTFOLIO ───────────
+    path('portfolio/', include('Portfolio_app.urls')),
+
+    # ─────────── ADVERTISEMENTS ───────────
+    path('advertisements/', include('Advertisement_app.urls')),
+    path('listes/', include('Advertisement_app.urls')),
 ]

@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Ви вже проголосували в цьому опитуванні</h2>
+<p>Опитування: <strong>{{ poll.question }}</strong></p>
+<a href="{% url 'accounts:home' %}">Повернутися</a>
+{% endblock %}

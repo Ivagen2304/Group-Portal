@@ -1,0 +1,5 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Головна</h2>
+<p>Ви увійшли як: {{ user.username }}{% if user.is_moderator %} (Модератор){% endif %}</p>
+{% endblock %}

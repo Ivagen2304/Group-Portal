@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Опитування</h2>
+<ul>
+{% for p in polls %}<li><strong>{{ p.question }}</strong> — створено {{ p.created_at }} — отправлено: {{ p.sent }}</li>{% empty %}<li>Немає</li>{% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,18 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Message Form</title>
+</head>
+<body>
+    <h1>{{ form.instance.pk|yesno:"Edit Message,Create Message" }}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+
+    <a href="{% url 'message_list' form.initial.topic.pk %}">Back</a>
+</body>
+</html>

@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Message #{{ message.pk }}</title>
+</head>
+<body>
+    <h1>Message #{{ message.pk }}</h1>
+
+    <p><strong>Author:</strong> {{ message.author.username }}</p>
+    <p><strong>Created:</strong> {{ message.created_at }}</p>
+
+    {% if message.is_edited %}
+        <p><strong>Edited:</strong> {{ message.edited_at }}</p>
+    {% endif %}
+
+    <hr>
+    <p>{{ message.text }}</p>
+    <hr>
+
+    <a href="{% url 'message_edit' message.pk %}">Edit</a> |
+    <a href="{% url 'message_delete' message.pk %}">Delete</a> |
+    <a href="{% url 'message_list' message.topic.pk %}">Back to Messages</a>
+</body>
+</html>

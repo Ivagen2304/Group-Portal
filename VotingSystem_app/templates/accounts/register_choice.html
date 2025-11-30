@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Обрати роль</h2>
+
+<a href="{% url 'accounts:register' %}?role=user">Звичайний користувач</a>
+<br>
+<a href="{% url 'accounts:register' %}?role=moderator">Модератор</a>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>{{ poll.question }}</h1>
+
+
+    <form method="post">
+        {% csrf_token %}
+        {% for opt in poll.options.all %}
+            <label>
+                <input type="radio" name="option" value="{{ opt.id }}">
+                {{ opt.text }} — {{ opt.votes }} голосів
+            </label><br>
+        {% endfor %}
+        <button type="submit">Проголосувати</button>
+    </form>
+
+{% endblock %}

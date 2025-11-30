@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ topic.title }}</title>
+</head>
+<body>
+    <h1>{{ topic.title }}</h1>
+
+    <p><strong>Category:</strong> <a href="{% url 'category_detail' topic.category.pk %}">{{ topic.category.name }}</a></p>
+    <p><strong>Author:</strong> {{ topic.author.username }}</p>
+    <p><strong>Created:</strong> {{ topic.created_at }}</p>
+    <p><strong>Updated:</strong> {{ topic.updated_at }}</p>
+    <p><strong>Closed:</strong> {{ topic.is_closed|yesno:"Yes,No" }}</p>
+    <p><strong>Views:</strong> {{ topic.views }}</p>
+
+    <hr>
+
+    <a href="{% url 'message_list' topic.pk %}">View Messages</a> |
+    <a href="{% url 'topic_edit' topic.pk %}">Edit Topic</a> |
+    <a href="{% url 'topic_delete' topic.pk %}">Delete Topic</a>
+
+    <br><br>
+    <a href="{% url 'topic_list' topic.category.pk %}">Back to Topics</a>
+</body>
+</html>

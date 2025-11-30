@@ -1,0 +1,13 @@
+{% extends 'ElectronicDiary_app/base.html' %}
+
+{% block content %}
+<h2>Форма учня</h2>
+
+<form method="POST" class="mt-3">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button class="btn btn-success" type="submit">Зберегти</button>
+    <a href="{% url 'student_list' %}" class="btn btn-secondary">Назад</a>
+</form>
+{% endblock %}

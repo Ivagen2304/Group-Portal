@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Messages</title>
+</head>
+<body>
+    <h1>Messages in: {{ topic.title }}</h1>
+
+    <a href="{% url 'message_create' topic.pk %}">Create Message</a>
+    <br><br>
+
+    <ul>
+        {% for m in messages %}
+            <li>
+                <a href="{% url 'message_detail' m.pk %}">Message #{{ m.pk }}</a>
+                — {{ m.author.username }} ({{ m.created_at }})
+            </li>
+        {% empty %}
+            <li>No messages yet.</li>
+        {% endfor %}
+    </ul>
+
+    <br>
+    <a href="{% url 'topic_detail' topic.pk %}">Back to Topic</a>
+</body>
+</html>

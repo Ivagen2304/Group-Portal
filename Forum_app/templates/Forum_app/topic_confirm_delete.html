@@ -1,0 +1,20 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Topic</title>
+</head>
+<body>
+    <h1>Delete Topic</h1>
+
+    <p>Are you sure you want to delete topic "{{ object.title }}"?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Confirm</button>
+    </form>
+
+    <a href="{% url 'topic_detail' object.pk %}">Cancel</a>
+</body>
+</html>

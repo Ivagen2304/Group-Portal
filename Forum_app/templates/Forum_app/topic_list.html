@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Topics</title>
+</head>
+<body>
+    <h1>Topics in: {{ category.name }}</h1>
+
+    <a href="{% url 'topic_create' pk=category.pk %}">Create Topic</a>
+    <br><br>
+
+    <ul>
+        {% for t in topics %}
+            <li>
+                <a href="{% url 'topic_detail' t.pk %}">{{ t.title }}</a>
+                — by {{ t.author.username }} ({{ t.created_at }})
+            </li>
+        {% empty %}
+            <li>No topics found.</li>
+        {% endfor %}
+    </ul>
+
+    <br>
+    <a href="{% url 'category_detail' category.pk %}">Back to Category</a>
+</body>
+</html>

@@ -1,0 +1,16 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Category Form</title>
+</head>
+<body>
+    <h1>{{ form.instance.pk|yesno:"Edit Category,Create Category" }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+    <a href="{% url 'category_list' %}">Back</a>
+</body>
+</html>

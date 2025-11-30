@@ -1,0 +1,22 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Topic Form</title>
+</head>
+<body>
+    <h1>{{ form.instance.pk|yesno:"Edit Topic,Create Topic" }}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+
+    {% if form.instance.pk %}
+        <a href="{% url 'topic_detail' form.instance.pk %}">Back</a>
+    {% else %}
+        <a href="{% url 'category_list' %}">Back</a>
+    {% endif %}
+</body>
+</html>
