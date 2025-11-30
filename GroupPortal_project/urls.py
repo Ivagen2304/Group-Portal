@@ -24,7 +24,7 @@ urlpatterns = [
     # auth
     # electronic
     # events
-    # gallery
+    path('gallery/', include('Gallery_app.urls')),
     path('', include('MainPage_app.urls')),
     # materials
     # portfolio
