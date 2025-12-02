@@ -1,20 +1,12 @@
 from django import forms
-from .models import Category, Topic, Message
-
-
-class CategoryForm(forms.ModelForm):
-    class Meta:
-        model = Category
-        fields = ['name', 'description']
-
+from .models import Topic, Post
 
 class TopicForm(forms.ModelForm):
     class Meta:
         model = Topic
-        fields = ['category', 'title', 'is_closed']
+        fields = ['title']
 
-
-class MessageForm(forms.ModelForm):
+class PostForm(forms.ModelForm):
     class Meta:
-        model = Message
-        fields = ['topic', 'text']
+        model = Post
+        fields = ['content']

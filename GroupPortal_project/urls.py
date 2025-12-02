@@ -19,7 +19,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('categoryes/', include('Forum_app.urls')),
+    path('forum/', include('Forum_app.urls')),
     # advertisement
     # auth
     # electronic
