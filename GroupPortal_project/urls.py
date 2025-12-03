@@ -19,7 +19,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('forum/', include('Forum_app.urls')),
+    path('categoryes/', include('Forum_app.urls'))
     # advertisement
     # auth
     # electronic
@@ -27,7 +27,7 @@ urlpatterns = [
     # gallery
     path('', include('MainPage_app.urls')),
     # materials
-    # portfolio
+    path("portfolio/", include("Portfolio_app.urls"))
     # questions
     # votingsystem
 

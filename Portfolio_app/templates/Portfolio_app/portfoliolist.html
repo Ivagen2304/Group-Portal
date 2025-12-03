@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>All Portfolios</h1>
+    <p><a href = "{% url 'portfoliocreate' %}">Створити</a></p>
+    {% for portfolio in portfolios %}
+    <div>
+        <a href = "/portfolio/{{portfolio.pk}}">{{portfolio.name}}</a>
+    </div>
+    {% endfor %}
+</body>
+</html>
