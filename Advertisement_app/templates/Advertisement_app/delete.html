@@ -1,0 +1,15 @@
+{% block content %}
+<div class="container mt-4">
+    <h2>Видалити оголошення</h2>
+
+    <form method="post" action="{% url 'advertisements:delete' object.pk %}">
+        {% csrf_token %}
+        <p>Ти впевнений, що хочеш видалити це оголошення?</p>
+
+        <button type="submit" class="btn btn-danger">Видалити</button>
+        <a href="{% url 'advertisements:advertisement' %}" class="btn btn-secondary">Скасувати</a>
+    </form>
+</div>
+{% endblock %}
+
+
