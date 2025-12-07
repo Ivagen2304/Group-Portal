@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Створити оголошення</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit" class="btn btn-success">Створити</button>
+    <a href="{% url 'advertisement_list' %}" class="btn btn-secondary">Назад</a>
+</form>
+{% endblock %}

@@ -1,18 +1,34 @@
-
-
+{% extends "base.html" %}
 {% block content %}
-<div class="container mt-4">
 
-    <h2>Редагувати оголошення</h2>
+<h2 class="mb-3">Редагування оголошення</h2>
 
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
+<form method="post">
+    {% csrf_token %}
 
-        <button type="submit" class="btn btn-success mt-2">Зберегти</button>
-        <a href="{% url 'advertisements:detail' object.pk %}" class="btn btn-secondary mt-2">Назад</a>
-    </form>
+    <div class="mb-3">
+        <label class="form-label">Назва</label>
+        {{ form.title }}
+    </div>
 
-</div>
+    <div class="mb-3">
+        <label class="form-label">Опис</label>
+        {{ form.description }}
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Ціна</label>
+        {{ form.price }}
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Дедлайн</label>
+        {{ form.date_limit }}
+        <small class="text-muted">Оберіть дату</small>
+    </div>
+
+    <button type="submit" class="btn btn-warning">Оновити</button>
+    <a href="{% url 'advertisement_list' %}" class="btn btn-secondary">Назад</a>
+</form>
+
 {% endblock %}
-

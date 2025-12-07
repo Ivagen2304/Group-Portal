@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Нове повідомлення</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-success">Зберегти</button>
+    <a class="btn btn-secondary" href="{% url 'message_list' form.initial.topic.pk %}">Назад</a>
+</form>
+
+{% endblock %}

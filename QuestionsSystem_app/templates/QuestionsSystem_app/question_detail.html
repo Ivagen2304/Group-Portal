@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <h3>{{ question.title }}</h3>
+
+        <p class="text-muted">
+            Автор: <b>{{ question.author.username }}</b> |
+            {{ question.created_at|date:"d.m.Y H:i" }}
+        </p>
+
+        <p>{{ question.text }}</p>
+
+        {% if question.category %}
+            <span class="badge bg-info text-dark">{{ question.category.name }}</span>
+        {% endif %}
+    </div>
+</div>
+
+<a href="{% url 'question_list' %}" class="btn btn-outline-secondary mb-3">
+    ← Назад
+</a>
+
+{% if user.is_authenticated and user == question.author %}
+<div class="mb-4">
+    <a href="{% url 'question_update' question.pk %}" class="btn btn-warning">Редагувати</a>
+    <a href="{% url 'question_delete' question.pk %}" class="btn btn-danger">Видалити</a>
+</div>
+{% endif %}
+
+<hr>
+
+<h4>Відповіді</h4>
+
+{% for ans in answers %}
+    <div class="card shadow-sm mb-3">
+        <div class="card-body">
+            <p>{{ ans.text }}</p>
+            <small class="text-muted">
+                {{ ans.author.username }} | {{ ans.created_at|date:"d.m.Y H:i" }}
+            </small>
+        </div>
+    </div>
+{% empty %}
+    <p class="text-muted">Поки немає відповідей.</p>
+{% endfor %}
+
+{% if user.is_authenticated %}
+<div class="card shadow mt-4">
+    <div class="card-body">
+        <h5>Написати відповідь</h5>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-primary">Надіслати</button>
+        </form>
+    </div>
+</div>
+{% else %}
+<p class="mt-3 text-muted">
+    <a href="/auth/login/">Увійдіть</a>, щоб написати відповідь.
+</p>
+{% endif %}
+
+{% endblock %}

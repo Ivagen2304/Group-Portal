@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-4">
+    <h2>{{ list.name }}</h2>
+    <p><strong>Опис:</strong> {{ list.description }}</p>
+
+    {% if list.date_limit %}
+        <p><strong>Дедлайн:</strong> {{ list.date_limit|date:"d.m.Y" }}</p>
+    {% else %}
+        <p><strong>Дедлайн:</strong> не вказано</p>
+    {% endif %}
+
+    <a class="btn btn-warning" href="{% url 'list_update' list.pk %}">Редагувати</a>
+    <a class="btn btn-danger" href="{% url 'list_delete' list.pk %}">Видалити</a>
+    <a class="btn btn-secondary" href="{% url 'list_advertisement' %}">Назад</a>
+</div>
+
+{% endblock %}

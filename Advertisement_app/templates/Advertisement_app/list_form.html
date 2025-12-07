@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-4">
+    <h2 class="mb-3">
+        {% if form.instance.pk %}
+            Редагування списку
+        {% else %}
+            Створення нового списку
+        {% endif %}
+    </h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label class="form-label">Назва</label>
+            {{ form.name }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Опис</label>
+            {{ form.description }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Дедлайн</label>
+            {{ form.date_limit }}
+            <small class="text-muted">Оберіть дату</small>
+        </div>
+
+        <button class="btn btn-success" type="submit">Зберегти</button>
+        <a class="btn btn-secondary" href="{% url 'list_advertisement' %}">Назад</a>
+    </form>
+
+</div>
+
+{% endblock %}

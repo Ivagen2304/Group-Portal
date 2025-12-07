@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2 class="mb-3">Система питань</h2>
+
+<div class="mb-3">
+    <a class="btn btn-success" href="{% url 'question_create' %}">Створити питання</a>
+    <a class="btn btn-primary" href="{% url 'category_create' %}">Створити категорію</a>
+</div>
+
+<h3>Категорії</h3>
+<div class="mb-3">
+    {% for cat in categories %}
+        <a class="btn btn-outline-secondary btn-sm mb-1" href="{% url 'category_detail' cat.pk %}">
+            {{ cat.name }}
+        </a>
+    {% empty %}
+        <p class="text-muted">Категорій немає</p>
+    {% endfor %}
+</div>
+
+<h3>Питання</h3>
+<ul class="list-group">
+    {% for q in questions %}
+        <li class="list-group-item">
+            <a href="{% url 'question_detail' q.pk %}">
+                <b>{{ q.title }}</b>
+            </a>
+            <br>
+            <small class="text-muted">
+                Автор: {{ q.author }} • {{ q.created_at|date:"d.m.Y H:i" }}
+            </small>
+        </li>
+    {% empty %}
+        <li class="list-group-item text-muted">Питань немає.</li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

@@ -38,12 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'MainPage_app',
-    'Authentication_app',
+    'Authentication_app.apps.AuthenticationAppConfig',
     'Forum_app',
-    #'ElectronicDiary_app',
+    'ElectronicDiary_app',
     'Events_app',
     'QuestionsSystem_app',
-    'VotingSystem_app',
+    'VotingSystem_app.apps.VotingSystemAppConfig',
     'Advertisement_app',
     'Materials_app',
     'Portfolio_app',
@@ -132,3 +132,10 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_URL = "/auth/login/"
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

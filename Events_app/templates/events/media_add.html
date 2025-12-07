@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+
+    <h2>Додати медіафайл</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button class="btn btn-primary">Додати</button>
+        <a href="{% url 'event_detail' event.pk %}" class="btn btn-secondary">Назад</a>
+    </form>
+
+</div>
+{% endblock %}

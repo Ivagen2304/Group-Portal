@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Редагувати роботу: {{ portfolio.name }}</h2>
+
+    <form method="post" enctype="multipart/form-data" class="mt-3">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        <div class="mb-3">
+            <label class="form-label" for="{{ form.name.id_for_label }}">Назва</label>
+            {{ form.name }}
+            {{ form.name.errors }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" for="{{ form.discription.id_for_label }}">Опис</label>
+            {{ form.discription }}
+            {{ form.discription.errors }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" for="{{ form.link.id_for_label }}">Посилання</label>
+            {{ form.link }}
+            {{ form.link.errors }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" for="{{ form.file.id_for_label }}">Файл</label>
+            {{ form.file }}
+            {{ form.file.errors }}
+
+            {% if portfolio.file %}
+                <p class="mt-2">
+                    Поточний файл:
+                    <a href="{{ portfolio.file.url }}" target="_blank">
+                        завантажити / скачать
+                    </a>
+                </p>
+            {% endif %}
+        </div>
+
+        <button type="submit" class="btn btn-success">Зберегти зміни</button>
+        <a href="{% url 'portfoliodetail' portfolio.pk %}" class="btn btn-secondary">Відмінити</a>
+    </form>
+</div>
+{% endblock %}

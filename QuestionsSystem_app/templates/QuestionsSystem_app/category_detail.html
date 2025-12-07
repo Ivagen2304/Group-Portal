@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2 class="mb-3">{{ category.name }}</h2>
+
+<a class="btn btn-outline-secondary mb-4" href="{% url 'question_list' %}">
+    ← Повернутися до всіх питань
+</a>
+
+<h4 class="mb-3">Питання в категорії:</h4>
+
+<div class="row">
+    {% for q in questions %}
+        <div class="col-md-6 mb-3">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h5>
+                        <a href="{% url 'question_detail' q.pk %}" class="text-decoration-none text-dark">
+                            {{ q.title }}
+                        </a>
+                    </h5>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p class="text-muted">У цій категорії немає питань.</p>
+    {% endfor %}
+</div>
+
+{% endblock %}

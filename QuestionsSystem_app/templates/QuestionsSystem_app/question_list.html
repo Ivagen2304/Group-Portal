@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2 class="mb-4">Питання</h2>
+
+<div class="d-flex justify-content-between mb-3">
+    <a href="{% url 'question_create' %}" class="btn btn-success">Створити питання</a>
+    <a href="{% url 'category_create' %}" class="btn btn-outline-primary">Створити категорію</a>
+</div>
+
+<h4>Категорії:</h4>
+<div class="mb-4">
+    {% for cat in categories %}
+        <a class="badge bg-secondary text-decoration-none p-2 me-1" 
+           href="{% url 'category_detail' cat.pk %}">
+            {{ cat.name }}
+        </a>
+    {% empty %}
+        <p>Категорій немає.</p>
+    {% endfor %}
+</div>
+
+<div class="row">
+    {% for q in questions %}
+        <div class="col-md-6 mb-4">
+            <div class="card shadow border-0">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{% url 'question_detail' q.pk %}" class="text-decoration-none text-dark">
+                            {{ q.title }}
+                        </a>
+                    </h5>
+
+                    <p class="text-muted mb-1">
+                        Автор: <b>{{ q.author.username }}</b>
+                    </p>
+
+                    <small class="text-muted">
+                        {{ q.created_at|date:"d.m.Y H:i" }}
+                    </small>
+
+                    {% if q.category %}
+                        <span class="badge bg-info text-dark float-end">
+                            {{ q.category.name }}
+                        </span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p>Питань немає.</p>
+    {% endfor %}
+</div>
+
+{% endblock %}

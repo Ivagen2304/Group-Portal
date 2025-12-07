@@ -1,27 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Topics in {{ category.name }}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-light">
-    <div class="container py-5">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1>Topics in "{{ category.name }}"</h1>
-            <a href="{% url 'Forum_app:create_topic' category.id %}" class="btn btn-success">Create New Topic</a>
-        </div>
-        <a href="{% url 'Forum_app:category_list' %}" class="btn btn-secondary mb-3">Back to Categories</a>
-        <div class="list-group">
-            {% for topic in topics %}
-                <a href="{% url 'Forum_app:post_list' topic.id %}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                    {{ topic.title }} - <small class="text-muted">by {{ topic.author.username }}</small>
-                    <span class="badge bg-primary rounded-pill">{{ topic.views }} views</span>
-                </a>
-            {% empty %}
-                <p class="text-muted">No topics yet in this category.</p>
-            {% endfor %}
-        </div>
-    </div>
-</body>
-</html>
+{% extends "base.html" %}
+{% block content %}
+<h2>Теми категорії: {{ category.name }}</h2>
+
+<a class="btn btn-primary mb-2" href="{% url 'topic_create' category.pk %}">Створити тему</a>
+
+
+<ul class="list-group">
+    {% for topic in topics %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <a href="{% url 'topic_detail' topic.pk %}">{{ topic.title }}</a>
+            <div>
+                <a class="btn btn-sm btn-warning" href="{% url 'topic_update' topic.pk %}">Редагувати</a>
+                <a class="btn btn-sm btn-danger" href="{% url 'topic_delete' topic.pk %}">Видалити</a>
+            </div>
+        </li>
+    {% empty %}
+        <li class="list-group-item">Немає тем.</li>
+    {% endfor %}
+</ul>
+
+<a class="btn btn-secondary mt-3" href="{% url 'category_list' %}">Назад</a>
+
+{% endblock %}

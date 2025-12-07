@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+
+    <a href="{% url 'event_list' %}" class="btn btn-secondary mb-3">Назад</a>
+
+    <h2>{{ event.title }}</h2>
+    <p><b>Дата:</b> {{ event.date }}</p>
+    <p>{{ event.description }}</p>
+
+    {% if event.cover %}
+        <img src="{{ event.cover.url }}" class="img-fluid rounded mb-4" style="max-height: 300px;">
+    {% endif %}
+
+    <a href="{% url 'event_edit' event.pk %}" class="btn btn-warning">Редагувати</a>
+    <a href="{% url 'event_delete' event.pk %}" class="btn btn-danger">Видалити</a>
+
+    <hr>
+
+    <h3>Медіафайли</h3>
+
+    <div class="row">
+        {% for file in media %}
+        <div class="col-md-4 mb-3">
+
+            {% if file.is_image %}
+                <img src="{{ file.file.url }}" class="img-fluid rounded">
+            {% elif file.is_video %}
+                <video src="{{ file.file.url }}" class="w-100" controls></video>
+            {% else %}
+                <p>Невідомий формат файлу</p>
+            {% endif %}
+
+        </div>
+        {% endfor %}
+    </div>
+
+    <a href="{% url 'media_add' event.pk %}" class="btn btn-primary mt-2">Додати медіафайл</a>
+
+</div>
+{% endblock %}

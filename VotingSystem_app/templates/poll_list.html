@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-4">
+    <h2 class="mb-3">Голосування</h2>
+
+    <a href="{% url 'poll_create' %}" class="btn btn-primary mb-3">
+        Створити нове голосування
+    </a>
+
+    {% for poll in polls %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">{{ poll.title }}</h5>
+            <p class="card-text">{{ poll.description }}</p>
+
+            <a href="{% url 'poll_vote' poll.id %}" class="btn btn-success btn-sm">Проголосувати</a>
+            <a href="{% url 'poll_results' poll.id %}" class="btn btn-secondary btn-sm">Результати</a>
+
+            {% if user.is_superuser %}
+            <a href="{% url 'poll_edit' poll.id %}" class="btn btn-warning btn-sm">Редагувати</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

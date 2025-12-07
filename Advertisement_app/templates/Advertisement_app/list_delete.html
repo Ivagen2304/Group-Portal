@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Видалити список</h2>
+
+<p>Ви впевнені, що хочете видалити список <strong>{{ list.name }}</strong>?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Видалити</button>
+    <a href="{% url 'list_advertisement' %}" class="btn btn-secondary">Скасувати</a>
+</form>
+{% endblock %}

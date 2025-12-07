@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ topic.title }}</h2>
+
+<p><strong>Автор:</strong> {{ topic.author }}</p>
+<p><strong>Закрита:</strong> {{ topic.is_closed|yesno:"Так,Ні" }}</p>
+
+<a class="btn btn-primary" href="{% url 'message_list' topic.pk %}">Переглянути повідомлення</a>
+<a class="btn btn-warning" href="{% url 'topic_update' topic.pk %}">Редагувати</a>
+<a class="btn btn-danger" href="{% url 'topic_delete' topic.pk %}">Видалити</a>
+
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'ElectronicDiary_app/base.html' %}
+
+{% block content %}
+<h2>Форма учня</h2>
+
+<form method="POST" style="max-width: 350px;">
+    {% csrf_token %}
+
+    <div style="display: flex; flex-direction: column; gap: 15px;">
+
+        <div>
+            <label for="id_first_name">Ім'я:</label><br>
+            {{ form.first_name }}
+        </div>
+
+        <div>
+            <label for="id_last_name">Прізвище:</label><br>
+            {{ form.last_name }}
+        </div>
+
+        <div>
+            <label for="id_grade">Клас:</label><br>
+            {{ form.grade }}
+        </div>
+
+        <div>
+            <label for="id_birth_date">Дата народження (РРРР-ММ-ДД):</label><br>
+            {{ form.birth_date }}
+        </div>
+
+    </div>
+
+    <br>
+    <button type="submit" class="btn btn-success">Зберегти</button>
+    <a href="{% url 'student_list' %}" class="btn btn-secondary">Назад</a>
+</form>
+{% endblock %}

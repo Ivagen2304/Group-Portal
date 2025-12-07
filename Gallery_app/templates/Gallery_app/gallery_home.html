@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="mb-4">Галерея</h2>
+
+<div class="list-group">
+    <a href="{% url 'album_list' %}" class="list-group-item list-group-item-action">
+        📁 Переглянути всі альбоми
+    </a>
+</div>
+{% endblock %}

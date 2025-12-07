@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ category.name }}</h2>
+
+<p><strong>Опис:</strong> {{ category.description }}</p>
+
+<a class="btn btn-primary" href="{% url 'topic_list' category.pk %}">Перейти до тем</a>
+<a class="btn btn-warning" href="{% url 'category_update' category.pk %}">Редагувати</a>
+<a class="btn btn-danger" href="{% url 'category_delete' category.pk %}">Видалити</a>
+{% endblock %}

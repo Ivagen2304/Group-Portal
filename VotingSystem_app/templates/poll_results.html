@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2>Результати: {{ poll.title }}</h2>
+
+    {% for option in poll.options.all %}
+    <div class="card mb-2">
+        <div class="card-body">
+            <strong>{{ option.text }}</strong>
+            <span class="float-end">Голосів: {{ option.votes }}</span>
+        </div>
+    </div>
+    {% endfor %}
+
+    <a href="{% url 'poll_list' %}" class="btn btn-secondary mt-3">Повернутися</a>
+
+</div>
+
+{% endblock %}

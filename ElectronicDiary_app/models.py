@@ -9,21 +9,34 @@ class User(AbstractUser):
         ('parent', 'Батько/мати'),
         ('admin', 'Адміністратор'),
     ]
+
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='student')
+
+    # Обязательные исправления конфликтов
+    groups = models.ManyToManyField(
+        'auth.Group',
+        related_name='custom_user_groups',
+        blank=True
+    )
+
+    user_permissions = models.ManyToManyField(
+        'auth.Permission',
+        related_name='custom_user_permissions',
+        blank=True
+    )
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} ({self.get_role_display()})"
 
 
-
 class Class(models.Model):
-    name = models.CharField(max_length=20)  
+    name = models.CharField(max_length=20)
     year = models.PositiveIntegerField()
-    teacher = models.ForeignKey('Teacher', on_delete=models.SET_NULL, null=True, blank=True, related_name='class_teacher')
+    teacher = models.ForeignKey('Teacher', on_delete=models.SET_NULL,
+                                null=True, blank=True, related_name='class_teacher')
 
     def __str__(self):
         return self.name
-
 
 
 class Subject(models.Model):
@@ -34,27 +47,24 @@ class Subject(models.Model):
         return self.name
 
 
-
 class Teacher(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    subject = models.ForeignKey(Subject, on_delete=models.SET_NULL, null=True, blank=True)
+    subject = models.ForeignKey(Subject, on_delete=models.SET_NULL,
+                                null=True, blank=True)
     position = models.CharField(max_length=100, blank=True)
 
     def __str__(self):
         return f"{self.user.get_full_name()} — {self.subject.name if self.subject else 'Без предмету'}"
 
 
-
 class Student(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    school_class = models.ForeignKey(Class, on_delete=models.SET_NULL, null=True, blank=True)
-    birth_date = models.DateField(null=True, blank=True)
-    address = models.CharField(max_length=255, blank=True)
-    parent_contact = models.CharField(max_length=100, blank=True)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    grade = models.CharField(max_length=5)
+    birth_date = models.DateField()
 
     def __str__(self):
-        return self.user.get_full_name()
-
+        return f"{self.last_name} {self.first_name}"
 
 
 class Lesson(models.Model):
@@ -69,17 +79,15 @@ class Lesson(models.Model):
         return f"{self.subject.name} — {self.date}"
 
 
-
 class Grade(models.Model):
-    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="grades")
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
     grade = models.PositiveSmallIntegerField()
     comment = models.CharField(max_length=255, blank=True)
     date = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.student.user.last_name}: {self.grade}"
-
+        return f"{self.student.last_name}: {self.grade}"
 
 
 class Attendance(models.Model):
@@ -94,7 +102,7 @@ class Attendance(models.Model):
     comment = models.CharField(max_length=255, blank=True)
 
     def __str__(self):
-        return f"{self.student.user.last_name} — {self.get_status_display()}"
+        return f"{self.student.last_name} — {self.get_status_display()}"
 
 
 class Parent(models.Model):
@@ -106,13 +114,13 @@ class Parent(models.Model):
         return f"{self.user.get_full_name()} ({self.relation})"
 
 
-
 class Announcement(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField()
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     date_posted = models.DateTimeField(auto_now_add=True)
-    school_class = models.ForeignKey(Class, on_delete=models.SET_NULL, null=True, blank=True)
+    school_class = models.ForeignKey(Class, on_delete=models.SET_NULL,
+                                     null=True, blank=True)
 
     def __str__(self):
         return self.title

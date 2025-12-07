@@ -1,51 +1,95 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% block content %}
-<h1 class = 'mb-4'>Main Page</h1>
-<div class='row'>
-    <div class='col-md-12 col-lg-12'>
-        <div class="card">
-            <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-            <a href="#" class="card-link">Card link</a>
-            <a href="#" class="card-link">Another link</a>
+<div class="p-5 mb-4 bg-light rounded-3 border shadow-sm">
+    <div class="container-fluid py-3">
+        <h1 class="display-5 fw-bold text-primary">Вітаємо на Порталі Групи! </h1>
+        <p class="col-md-8 fs-4">Це єдиний простір для навчання, спілкування та обміну матеріалами. Перевіряй розклад, завантажуй лекції та спілкуйся з одногрупниками.</p>
+        <div class="mt-4">
+            <a href="/students/" class="btn btn-primary btn-lg" type="button">Мій щоденник</a>
+            <a href="/categoryes/" class="btn btn-outline-secondary btn-lg ms-2" type="button">На форум</a>
+        </div>
+    </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+    
+    <div class="col">
+        <div class="card h-100 shadow-sm hover-card">
+            <div class="card-body text-center">
+                <i class="fas fa-calendar-alt fa-3x text-warning mb-3"></i>
+                <h3 class="card-title">Події</h3>
+                <p class="card-text">Найближчі дедлайни, зустрічі та університетські заходи.</p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0 text-center mb-2">
+                <a href="/events/" class="btn btn-sm btn-outline-warning stretched-link">Переглянути події</a>
             </div>
         </div>
     </div>
-    <div class='col-md-4 col-lg-3'>
-        <div class="card">
-            <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-            <a href="#" class="card-link">Card link</a>
-            <a href="#" class="card-link">Another link</a>
+
+    <div class="col">
+        <div class="card h-100 shadow-sm hover-card">
+            <div class="card-body text-center">
+                <i class="fas fa-book fa-3x text-success mb-3"></i>
+                <h3 class="card-title">Матеріали</h3>
+                <p class="card-text">Лекції, лабораторні роботи та методички в одному місці.</p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0 text-center mb-2">
+                <a href="/materials/" class="btn btn-sm btn-outline-success stretched-link">До бібліотеки</a>
             </div>
         </div>
     </div>
-    <div class='col-md-4 col-lg-3'>
-        <div class="card">
-            <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-            <a href="#" class="card-link">Card link</a>
-            <a href="#" class="card-link">Another link</a>
+
+    <div class="col">
+        <div class="card h-100 shadow-sm hover-card">
+            <div class="card-body text-center">
+                <i class="fas fa-images fa-3x text-info mb-3"></i>
+                <h3 class="card-title">Галерея</h3>
+                <p class="card-text">Фотозвіти з життя групи, екскурсій та свят.</p>
+            </div>
+            <div class="card-footer bg-transparent border-top-0 text-center mb-2">
+                <a href="/albums/" class="btn btn-sm btn-outline-info stretched-link">Дивитися фото</a>
             </div>
         </div>
     </div>
-    <div class='col-md-4 col-lg-3'>
-        <div class="card">
-            <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-            <a href="#" class="card-link">Card link</a>
-            <a href="#" class="card-link">Another link</a>
+</div>
+
+<div class="row">
+    {% for ad in advertisements %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">{{ ad.title }}</h5>
+                    
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        <small>📅 {{ ad.created_at|date:"d.m.Y" }}</small>
+                        {% if ad.deadline %}
+                            <br><span class="text-danger">⏰ Дедлайн: {{ ad.deadline|date:"d.m.Y" }}</span>
+                        {% endif %}
+                    </h6>
+
+                    <p class="card-text mt-3">
+                        {{ ad.content|truncatewords:20 }}
+                    </p>
+                </div>
+                
+                <div class="card-footer bg-transparent border-top-0">
+                    <a href="{% url 'advertisement_detail' ad.pk %}" class="btn btn-outline-primary btn-sm">Читати далі</a>
+                </div>
             </div>
         </div>
-    </div>
+    {% empty %}
+        <p class="text-muted">Оголошень поки немає.</p>
+    {% endfor %}
+</div>
+
+    <div class="col-md-4">
+        <h3 class="border-bottom pb-2 mb-3">⚡ Швидкі посилання</h3>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><a href="/questions/" class="text-decoration-none">❓ Задати питання старості</a></li>
+            <li class="list-group-item"><a href="/voting/" class="text-decoration-none">🗳️ Активні голосування</a></li>
+            <li class="list-group-item"><a href="/portfolio/" class="text-decoration-none">💼 Портфоліо студентів</a></li>
+            <li class="list-group-item"><a href="/advertisements/" class="text-decoration-none">📢 Дошка оголошень</a></li>
+        </ul>
     </div>
 </div>
 {% endblock %}

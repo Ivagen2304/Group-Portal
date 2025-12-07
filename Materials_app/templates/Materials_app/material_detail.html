@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="mb-3">
+    <a href="{% url 'material_list' %}" class="btn btn-outline-secondary">
+        ← До списку матеріалів
+    </a>
+</div>
+
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+        <h3 class="card-title">{{ material.title }}</h3>
+
+        <p class="text-muted mb-1">
+            <b>Предмет:</b> {{ material.subject }} |
+            <b>Клас:</b> {{ material.school_class }}
+            {% if material.category %}
+                | <b>Розділ:</b> {{ material.category.name }}
+            {% endif %}
+        </p>
+
+        {% if material.description %}
+            <p class="mt-2">{{ material.description|linebreaks }}</p>
+        {% endif %}
+
+        {% if material.file %}
+            <a href="{{ material.file.url }}" class="btn btn-primary mt-3" download>
+                ⬇ Завантажити файл
+            </a>
+        {% else %}
+            <p class="text-danger mt-3">Файл не прикріплений.</p>
+        {% endif %}
+    </div>
+
+    {% if user.is_authenticated %}
+        <div class="card-footer d-flex justify-content-between">
+            <small class="text-muted">
+                Створено: {{ material.created_at|date:"d.m.Y H:i" }}
+            </small>
+            <div>
+                <a href="{% url 'material_update' material.pk %}" class="btn btn-warning btn-sm">Редагувати</a>
+                <a href="{% url 'material_delete' material.pk %}" class="btn btn-danger btn-sm">Видалити</a>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
+

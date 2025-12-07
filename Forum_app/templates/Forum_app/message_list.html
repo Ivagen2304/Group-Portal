@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Повідомлення теми: {{ topic.title }}</h2>
+
+<a class="btn btn-primary mb-3" href="{% url 'message_create' topic.pk %}">Написати повідомлення</a>
+
+<ul class="list-group">
+    {% for msg in messages %}
+        <li class="list-group-item">
+            <p>{{ msg.text }}</p>
+            <small>{{ msg.author }} | {{ msg.created_at }}</small>
+            <div class="mt-2">
+                <a class="btn btn-sm btn-warning" href="{% url 'message_update' msg.pk %}">Редагувати</a>
+                <a class="btn btn-sm btn-danger" href="{% url 'message_delete' msg.pk %}">Видалити</a>
+            </div>
+        </li>
+    {% empty %}
+        <li class="list-group-item">Повідомлень немає.</li>
+    {% endfor %}
+</ul>
+
+<a class="btn btn-secondary mt-3" href="{% url 'topic_detail' topic.pk %}">Назад</a>
+
+{% endblock %}

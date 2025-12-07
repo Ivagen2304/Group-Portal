@@ -1,0 +1,18 @@
+{% extends 'ElectronicDiary_app/base.html' %}
+
+{% block content %}
+<h2>Інформація про учня</h2>
+
+<ul class="list-group">
+    <li class="list-group-item"><strong>Прізвище:</strong> {{ student.last_name }}</li>
+    <li class="list-group-item"><strong>Імʼя:</strong> {{ student.first_name }}</li>
+    <li class="list-group-item"><strong>Клас:</strong> {{ student.grade }}</li>
+    <li class="list-group-item"><strong>Дата народження:</strong> {{ student.birth_date }}</li>
+</ul>
+
+<div class="mt-3">
+    <a class="btn btn-warning" href="{% url 'student_update' student.id %}">Редагувати</a>
+    <a class="btn btn-danger" href="{% url 'student_delete' student.id %}">Видалити</a>
+    <a class="btn btn-secondary" href="{% url 'student_list' %}">Назад</a>
+</div>
+{% endblock %}

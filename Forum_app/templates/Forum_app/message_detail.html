@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Повідомлення</h2>
+
+<p>{{ message.text }}</p>
+<p><small>{{ message.author }} — {{ message.created_at }}</small></p>
+
+<a class="btn btn-warning" href="{% url 'message_update' message.pk %}">Редагувати</a>
+<a class="btn btn-danger" href="{% url 'message_delete' message.pk %}">Видалити</a>
+
+<a class="btn btn-secondary" href="{% url 'message_list' message.topic.pk %}">Назад</a>
+
+{% endblock %}

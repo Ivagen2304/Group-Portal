@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Видалити повідомлення?</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <button class="btn btn-danger">Так, видалити</button>
+    <a class="btn btn-secondary" href="{% url 'message_list' message.topic.pk %}">Скасувати</a>
+</form>
+
+{% endblock %}

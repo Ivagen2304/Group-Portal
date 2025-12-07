@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Видалити питання?</h2>
+
+<p>Ви дійсно хочете видалити: <b>{{ question.title }}</b>?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button class="btn btn-danger">Видалити</button>
+    <a class="btn btn-secondary" href="{% url 'question_detail' question.pk %}">Назад</a>
+</form>
+
+{% endblock %}

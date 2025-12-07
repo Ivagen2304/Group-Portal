@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Видалити роботу</h2>
+
+    <div class="alert alert-danger mt-3">
+        Ти справді хочеш видалити роботу
+        <strong>"{{ portfolio.name }}"</strong>? Це дію неможливо скасувати.
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Так, видалити</button>
+        <a href="{% url 'portfoliodetail' portfolio.pk %}" class="btn btn-secondary">
+            Ні, залишити
+        </a>
+    </form>
+</div>
+{% endblock %}

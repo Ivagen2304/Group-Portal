@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Портфоліо</h2>
+        {% if request.user.is_authenticated %}
+            <a href="{% url 'portfoliocreate' %}" class="btn btn-primary">
+                + Додати роботу
+            </a>
+        {% else %}
+            <a href="{% url 'login' %}" class="btn btn-outline-primary">
+                Увійти, щоб додати роботу
+            </a>
+        {% endif %}
+    </div>
+
+    {% if portfolios %}
+        <div class="row">
+            {% for portfolio in portfolios %}
+                <div class="col-md-6 mb-3">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="{% url 'portfoliodetail' portfolio.pk %}">
+                                    {{ portfolio.name }}
+                                </a>
+                            </h5>
+                            <p class="card-text">
+                                {{ portfolio.discription|truncatechars:150 }}
+                            </p>
+
+                            <p class="mb-1">
+                                <small class="text-muted">
+                                    Автор: {{ portfolio.creator.username }}
+                                </small>
+                            </p>
+
+                            {% if portfolio.link %}
+                                <p class="mb-1">
+                                    <strong>Посилання:</strong>
+                                    <a href="{{ portfolio.link }}" target="_blank">
+                                        {{ portfolio.link }}
+                                    </a>
+                                </p>
+                            {% endif %}
+
+                            {% if portfolio.file %}
+                                <p class="mb-1">
+                                    <strong>Файл:</strong>
+                                    <a href="{{ portfolio.file.url }}" download>
+                                        Завантажити / Скачать
+                                    </a>
+                                </p>
+                            {% endif %}
+                        </div>
+                        <div class="card-footer d-flex justify-content-end gap-2">
+                            <a href="{% url 'portfoliodetail' portfolio.pk %}"
+                               class="btn btn-sm btn-outline-secondary">
+                                Детальніше
+                            </a>
+
+                            {% if request.user == portfolio.creator or request.user.is_superuser %}
+                                <a href="{% url 'portfolioupdate' portfolio.pk %}"
+                                   class="btn btn-sm btn-warning">
+                                    Редагувати
+                                </a>
+                                <a href="{% url 'portfoliodelete' portfolio.pk %}"
+                                   class="btn btn-sm btn-danger">
+                                    Видалити
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        {% if is_paginated %}
+            <nav>
+                <ul class="pagination">
+                    {% if page_obj.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">«</a>
+                        </li>
+                    {% endif %}
+
+                    {% for num in paginator.page_range %}
+                        <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+                            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                        </li>
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}">»</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        {% endif %}
+    {% else %}
+        <p>Поки що немає жодної роботи.</p>
+    {% endif %}
+</div>
+{% endblock %}

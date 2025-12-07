@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>{% if form.instance.pk %}Редагування{% else %}Створення{% endif %} питання</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button class="btn btn-success">
+        {% if form.instance.pk %}Зберегти{% else %}Створити{% endif %}
+    </button>
+
+    <a class="btn btn-secondary" href="{% url 'question_list' %}">Назад</a>
+</form>
+
+{% endblock %}

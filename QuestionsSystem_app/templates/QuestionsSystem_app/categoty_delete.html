@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4" style="max-width: 600px;">
+    <div class="card border-danger shadow-sm">
+        <div class="card-body">
+            <h3 class="card-title text-danger">
+                Підтвердження видалення
+            </h3>
+            <p class="mt-3">
+                Ви дійсно хочете видалити категорію
+                <strong>«{{ category.name }}»</strong>?
+            </p>
+            <p class="text-muted">
+                Усі питання, прив’язані до цієї категорії, залишаться, але без категорії.
+            </p>
+
+            <form method="post" class="mt-3">
+                {% csrf_token %}
+                <div class="d-flex justify-content-between">
+                    <a href="{% url 'category_list' %}" class="btn btn-outline-secondary">
+                        Скасувати
+                    </a>
+                    <button type="submit" class="btn btn-danger">
+                        Так, видалити
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

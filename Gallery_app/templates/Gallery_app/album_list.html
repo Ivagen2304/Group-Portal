@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="mb-4">Альбоми</h2>
+
+<div class="row">
+    {% for album in albums %}
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ album.name }}</h5>
+                <p class="card-text">{{ album.description }}</p>
+                <a href="{% url 'album_detail' album.pk %}" class="btn btn-primary">Відкрити</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+        <p>Поки що немає альбомів.</p>
+    {% endfor %}
+</div>
+
+{% endblock %}
