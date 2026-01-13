@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{portfolio.name}}</title>
+</head>
+<body>
+    <h1>Portfolio {{portfolio.name}}</h1>
+    <p>{{portfolio.creator}}</p>
+    <p>{{portfolio.discription}}</p>
+    {% if portfolio.link %}
+    <p><a href = "{{portfolio.link}}" target = "_blank">Pereyti</a></p>
+    {% endif %}
+    {% if portfolio.file %}
+    <p><a href = "{{portfolio.file}}">Files</a></p>
+    {% endif %}
+    <p><a href = "{% url 'portfolioupdate' portfolio.id %}">Редагувати</a></p>
+    <p><a href = "{% url 'portfoliodelete' portfolio.id %}">Видалити</a></p>
+</body>
+</html>

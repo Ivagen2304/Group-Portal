@@ -25,9 +25,14 @@ urlpatterns = [
     # electronic
     # events
     # gallery
-    # mainpage
+    path('', include('MainPage_app.urls')),
     # materials
-    # portfolio
+    path("portfolio/", include("Portfolio_app.urls"))
     # questions
     # votingsystem
+
+    path('advertisements/', include('Advertisement_app.urls')),
+    path('listes/', include('Advertisement_app.urls')),
+    
 ]
+

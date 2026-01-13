@@ -1,0 +1,27 @@
+/* Залишаємо базові стилі, без глобального display:flex, щоб Bootstrap працював */
+
+/* Основні стилі для body */
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f8f9fa;
+    padding: 20px;
+}
+
+/* Контейнери для центрування контенту */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Кнопки з невеликим відступом */
+.btn {
+    margin-right: 5px;
+    margin-top: 5px;
+}
+
+/* Стилі для форм */
+form {
+    width: 100%;
+}
